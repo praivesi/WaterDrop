@@ -1,9 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const csvCrawler = require('./businessLogic/csv-crawler')
 
 const db = require('./db')
 const movieRouter = require('./routes/movie-router')
+const mindStatRouter = require('./routes/mind-statistics-router')
 
 const app = express()
 const apiPort = 8080 
@@ -19,5 +21,8 @@ app.get('/', function(req, res){
 })
 
 app.use('/api', movieRouter)
+//app.use('/api', mindStatRouter)
+
+csvCrawler.loadCSV()
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
