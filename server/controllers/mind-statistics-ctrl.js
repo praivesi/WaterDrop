@@ -1,22 +1,40 @@
 const MindStat = require('../models/mind-statistics-model')
 
-getMindStats = async(req, res) => {
-    await MindStat.find({}, (err, mindStats) => {
+getMindStats = () => {
+    MindStat.find({}, (err, mindStats) => {
         if(err) {
-            return res.status(400).json({success:false, error:err})
+            console.log("Reading Mind statistics data from MongoDB is failed.")
+            return;
         }
 
-        if(!mindStats.length) {
-            return res
-                .status(404)
-                .json({success: false, error: 'Mind statistics not found'})
+        if(!mindStats.length)
+        {
+            console.log("Mind statistics data not found.")
+            return;
         }
 
-        return res.status(200).json({success:true, data: mindStats})
+        for (i = 0; i < mindStats.length; i++) {
+            console.log("COUNTRY: " + mindStats[i].country)
+            console.log("LIFE SATISFICATION: " + mindStats[i].lifeSatisfication)
+        }
+
+        return mindStats
     })
-    .catch(err => console.log(err))
+}
+
+insertMindStats = (datas) => {
+    for (i = 0; i < datas.length; i++) {
+        const newMindStat = MindStat(datas[i])
+        newMindStat
+            .save()
+            .then(() => {
+                console.log("country: " + newMindStat.country)
+                console.log("lifeSatisfication: " + newMindStat.lifeSatisfication)
+            })
+    }
 }
 
 module.exports = {
-    getMindStats
+    getMindStats,
+    insertMindStats
 }

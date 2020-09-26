@@ -2,13 +2,12 @@ const fs = require('fs')
 const results = []
 const iconv = require('iconv-lite')
 const MindStat = require('../models/mind-statistics-model')
-  
 
-
-function loadCSV()
-{
+function loadCSV() {
     var path = './businessLogic/life_quality.csv'
-    var data = fs.readFileSync(path, {encoding: "binary"})
+
+    // TODO: Switch to Web-site crawling
+    var data = fs.readFileSync(path, { encoding: "binary" })
     var data2EUCKR = iconv.decode(data, 'euc-kr')
     var rows = data2EUCKR.split("\n")
     var column = rows[1].split(',')
@@ -24,7 +23,6 @@ function loadCSV()
 
     if (lifeStatisfyColumnIdx === -1) return;
 
-    // for (var rowIndex in rows) 
     for (i = 2; i < rows.length; i++) {
         var row = rows[i].split(',')
         var newMStat = new MindStat()
@@ -32,16 +30,29 @@ function loadCSV()
         newMStat.country = row[0]
         newMStat.lifeSatisfication = row[lifeStatisfyColumnIdx]
 
+        if (newMStat.country == "") {
+            newMStat.country = "NOT COUNTRY"
+        }
+
+        if (!newMStat.lifeSatisfication) {
+            newMStat.lifeSatisfication = -1
+        }
+
         results.push(newMStat)
     }
 
-    results.sort(function(a, b){
+    results.sort(function (a, b) {
         return b.lifeSatisfication - a.lifeSatisfication;
-    })    
+    })
 
+    /*
+    // PRINTING DATA SNIPPET
     for (i = 0; i < results.length; i++) {
         console.log("COUNTRY: " + results[i].country + ", LIFE STATIFACTION: " + results[i].lifeSatisfication)
     }
+    */
+
+    return results;
 }
 
 module.exports =

@@ -6,6 +6,8 @@ const csvCrawler = require('./businessLogic/csv-crawler')
 const db = require('./db')
 const movieRouter = require('./routes/movie-router')
 const mindStatRouter = require('./routes/mind-statistics-router')
+const { getMindStats } = require('./controllers/mind-statistics-ctrl')
+const { insertMindStats } = require('./controllers/mind-statistics-ctrl')
 
 const app = express()
 const apiPort = 8080 
@@ -23,6 +25,16 @@ app.get('/', function(req, res){
 app.use('/api', movieRouter)
 //app.use('/api', mindStatRouter)
 
-csvCrawler.loadCSV()
-
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
+
+
+/*
+// INSERTING CSV DATA
+var datas = csvCrawler.loadCSV()
+insertMindStats(datas)
+*/
+
+/*
+// READING DATA FROM MONGO DB
+getMindStats()
+*/

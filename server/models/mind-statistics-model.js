@@ -9,4 +9,4 @@ const MindStat = new Schema(
     { timestampse: true }
 )
 
-module.exports = mongoose.model('mindStat', MindStat)
+module.exports = mongoose.model('mindStats', MindStat)
