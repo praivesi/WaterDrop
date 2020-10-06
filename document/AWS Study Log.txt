@@ -17,3 +17,9 @@
 1. WinSCP: 윈도우에서 리눅스 서버로 파일 전송을 쉽게 해주는 프로그램 // 이 프로그램을 통해 Windows 에서 작업한 파일들을 AWS의 Ubuntu 인스턴스로 옮김.
 2. mongodb, nodejs, yarn 은 AWS의 Ubuntu 인스턴스에서 새로 설치해줌. npm과 yarn이 사용하는 node 버전이 달라서 좀 헤맸는데 구글링으로 해결함.. 결국 기존의 node 패키지를 지우고 새로 설치한 후 업그레이드함.
 3. WaterDrop은 React로 프론트엔드를 만들었는데 이 앱을 정상적으로 작동시키기 위해선 NginX를 사용해야 할듯.. 내일은 NginX를 AWS 위에 올린 후 React 앱을 구동시켜보자.
+
+[2020.10.06 공부 내용]
+1. React 로 개발한 프론트엔드를 NginX를 이용해서 AWS Ubuntu에 업로드함.
+	-> apt-get 을 이용해 nginx를 설치하고 nginx의 설정 정보에 내가 빌드한 React 앱을 바인딩시킴.
+	-> 이전에 AWS Ubuntu에 apache를 웹서버 테스트용으로 설치했었는데 이것때문에 start nginx 명령어가 실행되지 않았다. apache 웹 서버를 stop 시킨 후 nginx를 start하니 잘 실행된다.
+	-> AWS Ubuntu의 IP 에 80 포트로 접속하면 드디어...!! React 앱의 첫 화면이 나온다...!!
