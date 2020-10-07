@@ -75,14 +75,13 @@ class MindstatsList extends Component {
         return (
             <Wrapper>
                 {showChart && (
-                    /*
                     <LineChart width={5000} height={300} interval={0} data={mindstats}>
                         <XAxis dataKey="country" />
                         <YAxis />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                         <Line type="monotone" dataKey="lifeSatisfication" stroke="#8884d8" />
                     </LineChart>
-                    */
+                    /*
                     //<ReactMapGL {...viewport}>
                     <ReactMapGL
                         width={'80vw'}
@@ -93,6 +92,7 @@ class MindstatsList extends Component {
                         longitude={127}
                         zoom={1}
                     />
+                    */
                 )}
             </Wrapper>
         )
